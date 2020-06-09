@@ -26,8 +26,8 @@ public class LoginResourceIT {
 
     @Before
     public void setup() {
-//        loginResource = deploymentURL + "main/login";
-        loginResource = "http://localhost:9080/Marktplaats_war_exploded/" + "main/login";
+        loginResource = deploymentURL + "main/login";
+        //loginResource = "http://localhost:9080/Marktplaats_war_exploded/" + "main/login";
     }
 
     @Deployment
@@ -42,7 +42,8 @@ public class LoginResourceIT {
     @Test
     public void loginResourceIT() {
         String message = ClientBuilder.newClient()
-                .target("http://localhost:9080/Marktplaats_war_exploded/main/login/")
+                .target(loginResource)
+                //.target("http://localhost:9080/Marktplaats_war_exploded/main/login/")
                 .request(MediaType.APPLICATION_JSON_TYPE)
                 .get(String.class);
 

@@ -23,17 +23,14 @@ public class CategorieDao {
     public void categorieVerwijderenMetNaam(String naamCategorie) {
         List<Categorie> select = categorieVindenMetNaam(naamCategorie);
         if (select.get(0).getCategorieNaam().equals(naamCategorie)) {
-            em.getTransaction().begin();
             em.remove(select.get(0));
-            em.getTransaction().commit();
         }
     }
 
-    public List<String> vindAlleDistinctCategorieen() {
-        Query query = em.createNativeQuery("SELECT DISTINCT categorieNaam FROM Categorie");
-
-        return query.getResultList();
-    }
+//    public List<String> vindAlleDistinctCategorieen() {
+//        Query query = em.createNativeQuery("SELECT DISTINCT categorieNaam FROM Categorie");
+//        return query.getResultList();
+//    }
 
     private List<Categorie> categorieVindenMetNaam(String naamCategorie) {
         CriteriaBuilder cb = em.getCriteriaBuilder();

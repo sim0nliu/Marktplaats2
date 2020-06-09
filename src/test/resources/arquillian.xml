@@ -7,7 +7,7 @@
         <configuration>
             <property name="serverName">defaultServer</property>
             <property name="httpPort">9080</property>
-            <property name="wlpHome">../wlp-webProfile8-20.0.0.5/wlp</property>
+            <property name="wlpHome">../wlp-javaee8-20.0.0.5/wlp</property>
             <!--            <property name="wlpHome">D:\Program Files\Java\wlp-webProfile8-20.0.0.5\wlp</property>-->
 
 
