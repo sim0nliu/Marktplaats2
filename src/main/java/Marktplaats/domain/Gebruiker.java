@@ -3,11 +3,9 @@ package Marktplaats.domain;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Getter
@@ -18,11 +16,19 @@ public class Gebruiker extends AbstracteEntiteit {
 
     @Column(unique = true)
     @Email
-    protected String email;
-    protected String wachtwoord;
+    private String email;
+    private String wachtwoord;
+    private String adres;
+
+    @NotNull
+    @ElementCollection
+    @CollectionTable(name = "bezorgwijzeVerkoper")
+    @Enumerated(EnumType.STRING)
+    private List<Bezorgwijze> bezorgwijzen;
 
     @OneToMany(cascade = CascadeType.ALL)
-    protected List<Artikel> lijstVanTeVerkopenArtikelen;
+    private List<Artikel> lijstVanTeVerkopenArtikelen;
+
 
     public Gebruiker() {
     }

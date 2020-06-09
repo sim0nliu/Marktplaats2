@@ -17,10 +17,10 @@ public class Product extends Artikel {
     @ElementCollection
     @CollectionTable(name = "bezorgwijzeProduct")
     @Enumerated(EnumType.STRING)
-    protected List<Bezorgwijze> bezorgwijzen;
+    private List<Bezorgwijze> bezorgwijzen;
 
     //BLOB
-    protected byte bijlagen[];
+    private byte bijlagen[];
 
     public Product() {
     }
