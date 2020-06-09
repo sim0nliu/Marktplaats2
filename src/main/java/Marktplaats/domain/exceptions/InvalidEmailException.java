@@ -1,5 +1,5 @@
 
-package domain.exceptions;
+package Marktplaats.domain.exceptions;
 
 public class InvalidEmailException extends Exception {
     public InvalidEmailException(){}
