@@ -20,7 +20,7 @@ public class Product extends Artikel {
     private List<Bezorgwijze> bezorgwijzen;
 
     //BLOB
-    private byte bijlagen[];
+    private byte[] bijlagen;
 
     public Product() {
     }
