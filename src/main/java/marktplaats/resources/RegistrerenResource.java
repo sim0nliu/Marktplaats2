@@ -1,7 +1,7 @@
 package marktplaats.resources;
 
-import Marktplaats.domain.Gebruiker;
-import Marktplaats.services.RegistrerenService;
+import marktplaats.domain.Gebruiker;
+import marktplaats.services.RegistrerenService;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;

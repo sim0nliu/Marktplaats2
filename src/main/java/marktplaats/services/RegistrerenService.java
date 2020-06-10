@@ -1,7 +1,7 @@
 package marktplaats.services;
 
-import Marktplaats.dao.GebruikerDao;
-import Marktplaats.domain.Gebruiker;
+import marktplaats.dao.GebruikerDao;
+import marktplaats.domain.Gebruiker;
 
 import javax.inject.Inject;
 
