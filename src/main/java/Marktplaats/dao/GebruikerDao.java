@@ -9,6 +9,7 @@ import javax.persistence.TypedQuery;
 
 @Stateless
 public class GebruikerDao {
+
     @PersistenceContext
     EntityManager em;
 
