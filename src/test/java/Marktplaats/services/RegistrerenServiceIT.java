@@ -1,4 +1,4 @@
-package Marktplaats.services;
+package marktplaats.services;
 
 import org.junit.jupiter.api.Test;
 
