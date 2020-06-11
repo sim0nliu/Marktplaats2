@@ -1,5 +1,7 @@
 package marktplaats.domain;
 
+import lombok.NoArgsConstructor;
+import marktplaats.domain.exceptions.InvalidEmailException;
 import marktplaats.domain.exceptions.InvalidPasswordException;
 import lombok.Getter;
 import lombok.Setter;
@@ -52,8 +54,24 @@ public class Gebruiker extends AbstracteEntiteit {
 
     public Gebruiker(String email, String wachtwoord) throws InvalidPasswordException {
         this.email = email;
-        setWachtwoord(wachtwoord);;
+        setWachtwoord(wachtwoord);
     }
+
+    private void init(String emailAdress) throws InvalidEmailException {
+        setEmailAdress(emailAdress);
+        regelementAkkoord = false;
+        actiefAccount = true;
+    }
+
+    public void setEmailAdress(String emailAdress) throws InvalidEmailException {
+        if(isValidEmail(emailAdress)){
+            this.email = emailAdress;
+        }else {
+            throw new InvalidEmailException();
+        }
+
+    }
+
 
     //TODO: response entity moet exception afvangen
     public void setWachtwoord(String password) throws InvalidPasswordException {
@@ -104,6 +122,11 @@ public class Gebruiker extends AbstracteEntiteit {
         } else {
             return true;
         }
+    }
+
+    public static boolean isValidEmail(String email) {
+        String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
+        return email.matches(regex);
     }
 
     public static boolean containsNONumber(String tobechecked) {
