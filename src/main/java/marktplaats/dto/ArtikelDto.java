@@ -1,5 +1,7 @@
 package marktplaats.dto;
 
+import lombok.Data;
+import lombok.Getter;
 import lombok.Setter;
 import marktplaats.domain.Bezorgwijze;
 import marktplaats.domain.Categorie;
@@ -9,7 +11,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
-@Setter
+@Data
 public class ArtikelDto {
     private long id;
     private String artikelNaam;

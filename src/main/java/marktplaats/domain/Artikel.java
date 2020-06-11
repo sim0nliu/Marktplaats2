@@ -14,6 +14,7 @@ import java.util.List;
 
 @Getter @Setter
 @Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Artikel extends AbstracteEntiteit {
 
     @NotNull
@@ -27,7 +28,6 @@ public class Artikel extends AbstracteEntiteit {
     protected BigDecimal prijs;
 
     protected String omschrijving;
-
 
     @ManyToOne(cascade = CascadeType.ALL)
     protected Gebruiker verkoper;

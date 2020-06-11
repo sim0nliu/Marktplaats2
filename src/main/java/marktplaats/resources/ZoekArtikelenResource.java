@@ -32,8 +32,7 @@ public class ZoekArtikelenResource {
     public ArtikelDto testArtikelZoeken() {
         List<Artikel> artikelen = zoekArtikelenService.getArtikelen(4);
         List<Product> producten = zoekArtikelenService.getProducten(4);
-        ArtikelDto dto = mapArtikelEnProductNaarDto(artikelen, producten);
-        return dto;
+        return mapArtikelEnProductNaarDto(artikelen, producten);
     }
 
     private ArtikelDto mapArtikelEnProductNaarDto(List<Artikel> artikelen, List<Product> producten) {
