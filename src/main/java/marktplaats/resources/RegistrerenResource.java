@@ -2,7 +2,11 @@ package marktplaats.resources;
 
 import marktplaats.dao.exceptions.GebruikerNotFoundException;
 import marktplaats.domain.Gebruiker;
+import marktplaats.domain.exceptions.InvalidEmailException;
+import marktplaats.domain.exceptions.InvalidPasswordException;
+import marktplaats.dto.GebruikerDto;
 import marktplaats.factories.RandomFactory;
+import marktplaats.services.GebruikerService;
 import marktplaats.services.RegistrerenService;
 
 import javax.inject.Inject;
@@ -16,6 +20,9 @@ public class RegistrerenResource {
 
     @Inject
     RegistrerenService registrerenService;
+
+    @Inject
+    GebruikerService gebruikerService;
 
     @Inject
     RandomFactory randomFactory;
@@ -47,14 +54,28 @@ public class RegistrerenResource {
         }
     }
 
+    //TODO: gebruik localization file, ipv van return strings in code.
     @POST
-    public Gebruiker post(Gebruiker gebruiker){
-        if(registrerenService.add(gebruiker)){
-            return gebruiker;
-        }else {
-            throw new RuntimeException("database failure");
+    public Gebruiker post(GebruikerDto gebruikerDto){
+        Gebruiker gebruiker;
+        try{
+            gebruiker = gebruikerService.mapDtoNaarGebruiker(gebruikerDto);
+            if(registrerenService.add(gebruiker)){
+                return gebruiker;
+            }else {
+                if(registrerenService.bestaatGebruiker(gebruiker.getEmail()))
+                {
+                    throw new RuntimeException(
+                            "Eeen Account met dit email adres kan niet worden gemaakt, waarschijnlijk omdat het al bestaat"
+                    );
+                }else{
+                    throw new RuntimeException("database failure");}
+            }
+        } catch (InvalidPasswordException e) {
+            throw new RuntimeException("Ingevoerd Wachtwoord is niet toegestaan");
+        } catch (InvalidEmailException e) {
+            throw new RuntimeException("Ingevoerd Emailadres is niet toegestaan");
         }
     }
-
 }
 
