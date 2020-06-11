@@ -30,7 +30,7 @@ public class Gebruiker extends AbstracteEntiteit {
     private String adres;
 
     @NotNull
-    @ElementCollection
+    @ElementCollection( fetch = FetchType.EAGER)
     @CollectionTable(name = "bezorgwijzeVerkoper")
     @Enumerated(EnumType.STRING)
     private List<Bezorgwijze> bezorgwijzen;

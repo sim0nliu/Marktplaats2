@@ -46,22 +46,25 @@ public class RegistrerenResource {
 
     @Produces(MediaType.APPLICATION_JSON)
     @GET @Path("q") // read
-    public Gebruiker get(@QueryParam("email") String email) {
+    public GebruikerDto get(@QueryParam("email") String email) {
         try {
-            return registrerenService.find(email);
+            GebruikerDto uitvoer = gebruikerService.mapGebruikerNaarDto(registrerenService.find(email));
+            System.out.println(uitvoer);
+            return uitvoer;
         }catch (GebruikerNotFoundException e) {
             throw new RuntimeException("Gebruiker niet gevonden");
         }
     }
 
     //TODO: gebruik localization file, ipv van return strings in code.
+    @Produces(MediaType.APPLICATION_JSON)
     @POST
-    public Gebruiker post(GebruikerDto gebruikerDto){
+    public GebruikerDto post(GebruikerDto gebruikerDto){
         Gebruiker gebruiker;
         try{
             gebruiker = gebruikerService.mapDtoNaarGebruiker(gebruikerDto);
             if(registrerenService.add(gebruiker)){
-                return gebruiker;
+                return gebruikerService.mapGebruikerNaarDto(gebruiker);
             }else {
                 if(registrerenService.bestaatGebruiker(gebruiker.getEmail()))
                 {
