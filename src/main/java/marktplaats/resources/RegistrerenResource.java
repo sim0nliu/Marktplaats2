@@ -31,8 +31,12 @@ public class RegistrerenResource {
     @GET @Path("factory")
     public Response factory()
     {
-        randomFactory.filldatabase();
-        return Response.ok().entity("Database gevuld met test vulling!").build();
+        try {
+            randomFactory.filldatabase();
+            return Response.ok().entity("Database gevuld met test vulling!").build();
+        }catch (javax.ejb.EJBTransactionRolledbackException ex){
+            return Response.ok().entity("Database heeft al vulling!").build();
+        }
     }
 
 
