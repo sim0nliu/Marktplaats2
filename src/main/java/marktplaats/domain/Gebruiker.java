@@ -22,9 +22,9 @@ import java.util.List;
 //@Inheritance(strategy = TABLE_PER_CLASS)
 public class Gebruiker extends AbstracteEntiteit {
 
-    @Column(unique = true)
     @Email
     @NotNull
+    @Column(unique = true, columnDefinition="VARCHAR(64)")
     protected String email;
 
     private String adres;
@@ -71,7 +71,6 @@ public class Gebruiker extends AbstracteEntiteit {
         }
 
     }
-
 
     //TODO: response entity moet exception afvangen
     public void setWachtwoord(String password) throws InvalidPasswordException {
