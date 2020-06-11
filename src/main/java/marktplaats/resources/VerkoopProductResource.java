@@ -8,7 +8,7 @@ import javax.ws.rs.core.Response;
 public class VerkoopProductResource {
 
     @GET
-    public Response helloworld() {
+    public Response helloworld2() {
         return Response.ok().entity("HOI").build();
     }
 }
