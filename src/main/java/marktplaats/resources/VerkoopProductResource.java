@@ -19,7 +19,7 @@ public class VerkoopProductResource {
     VerkoopProductService verkoopProductService;
 
     @GET
-    public Response helloworld() {
+    public Response helloworld2() {
         return Response.ok().entity("HOI").build();
     }
 

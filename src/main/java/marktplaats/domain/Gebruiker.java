@@ -29,7 +29,7 @@ public class Gebruiker extends AbstracteEntiteit {
 
     @NotNull
     @ElementCollection
-    @CollectionTable(name = "bezorgwijzeVerkoper")
+    @CollectionTable(name = "bezorgwijzeverkoper")
     @Enumerated(EnumType.STRING)
     private List<Bezorgwijze> bezorgwijzen;
 
@@ -37,7 +37,7 @@ public class Gebruiker extends AbstracteEntiteit {
     @NotNull
     private byte[] wachtwoord;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "verkoper")
     private List<Artikel> lijstVanTeVerkopenArtikelen;
 
 
@@ -52,7 +52,7 @@ public class Gebruiker extends AbstracteEntiteit {
 
     public Gebruiker(String email, String wachtwoord) throws InvalidPasswordException {
         this.email = email;
-        setWachtwoord(wachtwoord);;
+        setWachtwoord(wachtwoord);
     }
 
     //TODO: response entity moet exception afvangen
@@ -110,4 +110,8 @@ public class Gebruiker extends AbstracteEntiteit {
         return !tobechecked.matches(".*\\d.*");
     }
 
+    public void addArtikel(Artikel artikel) {
+        lijstVanTeVerkopenArtikelen.add(artikel);
+        artikel.setVerkoper(this);
+    }
 }

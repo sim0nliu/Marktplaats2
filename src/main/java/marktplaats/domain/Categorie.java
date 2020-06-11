@@ -6,6 +6,7 @@ import lombok.Setter;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import java.io.Serializable;
 
 @Getter
 @Setter
@@ -22,4 +23,6 @@ public class Categorie extends AbstracteEntiteit {
     public Categorie(String categorieNaam) {
         this.categorieNaam = categorieNaam;
     }
+
+    public void setArtikel(Artikel artikel) { this.artikel = artikel; }
 }
