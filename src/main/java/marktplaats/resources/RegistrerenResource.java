@@ -23,7 +23,6 @@ public class RegistrerenResource {
     RandomFactory randomFactory;
 
 
-
     @GET
     public Response helloworld() {
         return Response.ok().entity("HOI").build();

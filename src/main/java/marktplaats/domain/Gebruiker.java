@@ -52,8 +52,8 @@ public class Gebruiker extends AbstracteEntiteit {
     public Gebruiker() {
     }
 
-    public Gebruiker(String email, String wachtwoord) throws InvalidPasswordException {
-        this.email = email;
+    public Gebruiker(String email, String wachtwoord) throws InvalidPasswordException, InvalidEmailException {
+        init(email);
         setWachtwoord(wachtwoord);
     }
 
