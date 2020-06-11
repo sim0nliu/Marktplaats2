@@ -5,6 +5,7 @@ import marktplaats.domain.Categorie;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -39,5 +40,10 @@ public class CategorieDao {
         query.select(categorie).distinct(true).where(cb.equal(categorie.get("categorieNaam"), naamCategorie));
 
         return em.createQuery(query).getResultList();
+    }
+
+    public List<Categorie> getAlleCategorieen() {
+        Query query = em.createNativeQuery("SELECT categorieNaam FROM Categorie");
+        return query.getResultList();
     }
 }
