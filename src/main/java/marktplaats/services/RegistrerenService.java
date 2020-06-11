@@ -31,7 +31,7 @@ public class RegistrerenService {
     }
 
     public Gebruiker find(String email) throws GebruikerNotFoundException {
-        return gebruikerDao.selectWithEmail(email);
+        return gebruikerDao.selecteerOpEmail(email);
     }
 
     public boolean bestaatGebruiker(String email){

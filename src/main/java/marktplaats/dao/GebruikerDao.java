@@ -40,8 +40,8 @@ public class GebruikerDao {
         return query.getSingleResult();
     }
 
-    public Gebruiker selectWithEmail(String email) throws GebruikerNotFoundException {
-        TypedQuery<Gebruiker> selecteerOpEmail = em.createQuery("select p from Gebruiker p where p.emailAdress = :firstarg", Gebruiker.class);
+    public Gebruiker selecteerOpEmail(String email) throws GebruikerNotFoundException {
+        TypedQuery<Gebruiker> selecteerOpEmail = em.createQuery("select p from Gebruiker p where p.email = :firstarg", Gebruiker.class);
         selecteerOpEmail.setParameter("firstarg", email);
         List<Gebruiker> resultList = selecteerOpEmail.getResultList();
         if(resultList.size() == 1){
@@ -52,7 +52,7 @@ public class GebruikerDao {
     }
 
     public boolean bestaatGebruiker(String email){
-        TypedQuery<Gebruiker> selecteerOpEmail = selecteerOpEmail = em.createQuery("select p from Gebruiker p where p.emailAdress = :firstarg", Gebruiker.class);
+        TypedQuery<Gebruiker> selecteerOpEmail = selecteerOpEmail = em.createQuery("select p from Gebruiker p where p.email = :firstarg", Gebruiker.class);
         selecteerOpEmail.setParameter("firstarg", email);
         List<Gebruiker> resultList = selecteerOpEmail.getResultList();
         if(resultList.size() == 1){
