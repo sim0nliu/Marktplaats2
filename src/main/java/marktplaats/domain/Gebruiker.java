@@ -1,5 +1,7 @@
 package marktplaats.domain;
 
+
+import marktplaats.domain.exceptions.InvalidEmailException;
 import marktplaats.domain.exceptions.InvalidPasswordException;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,16 +24,17 @@ import java.util.List;
 //@Inheritance(strategy = TABLE_PER_CLASS)
 public class Gebruiker extends AbstracteEntiteit {
 
-    @Column(unique = true)
+
     @Email
     @NotNull
+    @Column(unique = true, columnDefinition="VARCHAR(64)")
     protected String email;
 
     private String adres;
 
     @NotNull
     @ElementCollection
-    @CollectionTable(name = "bezorgwijzeverkoper")
+    @CollectionTable(name = "bezorgwijzeVerkoper")
     @Enumerated(EnumType.STRING)
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Bezorgwijze> bezorgwijzen;
@@ -53,9 +56,24 @@ public class Gebruiker extends AbstracteEntiteit {
     public Gebruiker() {
     }
 
-    public Gebruiker(String email, String wachtwoord) throws InvalidPasswordException {
-        this.email = email;
+    public Gebruiker(String email, String wachtwoord) throws InvalidPasswordException, InvalidEmailException {
+        init(email);
         setWachtwoord(wachtwoord);
+    }
+
+    private void init(String emailAdress) throws InvalidEmailException {
+        setEmailAdress(emailAdress);
+        regelementAkkoord = false;
+        actiefAccount = true;
+    }
+
+    public void setEmailAdress(String emailAdress) throws InvalidEmailException {
+        if(isValidEmail(emailAdress)){
+            this.email = emailAdress;
+        }else {
+            throw new InvalidEmailException();
+        }
+
     }
 
     //TODO: response entity moet exception afvangen
@@ -109,6 +127,14 @@ public class Gebruiker extends AbstracteEntiteit {
         }
     }
 
+    public static boolean isValidEmail(String email) {
+        if(email.length()>64){
+            return false;
+        }
+        String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
+        return email.matches(regex);
+    }
+
     public static boolean containsNONumber(String tobechecked) {
         return !tobechecked.matches(".*\\d.*");
     }
@@ -121,4 +147,6 @@ public class Gebruiker extends AbstracteEntiteit {
     public long getId() {
         return this.id;
     }
+    public static boolean containsNoLetter(String tobechecked) {return !tobechecked.matches(".*\\s.*");}
+
 }
