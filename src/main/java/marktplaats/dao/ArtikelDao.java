@@ -25,6 +25,13 @@ public class ArtikelDao {
         return merged;
     }
 
+
+    public List<Artikel> zoekId(long index) {
+        TypedQuery<Artikel> query = em.createQuery("select a from Artikel a WHERE a.id = :id", Artikel.class);
+        query.setParameter("id", index);
+        return query.getResultList();
+    }
+
     public List<Artikel> zoekOpNaam(String zoekterm) {
         zoekterm = "%" + zoekterm + "%";
         TypedQuery<Artikel> query = em.createQuery("SELECT a FROM Artikel a WHERE  a.artikelNaam LIKE :naam", Artikel.class);

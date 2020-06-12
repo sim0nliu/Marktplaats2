@@ -63,4 +63,10 @@ public class GebruikerDao {
         }
     }
 
+
+    public Gebruiker getGebruikerMetEmail(String email) {
+        TypedQuery<Gebruiker> query = em.createQuery("SELECT g FROM Gebruiker g WHERE  g.email = :email", Gebruiker.class);
+        query.setParameter("email", email);
+        return query.getSingleResult();
+    }
 }
