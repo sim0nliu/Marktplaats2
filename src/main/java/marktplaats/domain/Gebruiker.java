@@ -3,6 +3,8 @@ package marktplaats.domain;
 import marktplaats.domain.exceptions.InvalidPasswordException;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -31,6 +33,7 @@ public class Gebruiker extends AbstracteEntiteit {
     @ElementCollection
     @CollectionTable(name = "bezorgwijzeverkoper")
     @Enumerated(EnumType.STRING)
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Bezorgwijze> bezorgwijzen;
 
     @Lob
@@ -113,5 +116,9 @@ public class Gebruiker extends AbstracteEntiteit {
     public void addArtikel(Artikel artikel) {
         lijstVanTeVerkopenArtikelen.add(artikel);
         artikel.setVerkoper(this);
+    }
+
+    public long getId() {
+        return this.id;
     }
 }

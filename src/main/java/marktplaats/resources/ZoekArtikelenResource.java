@@ -1,9 +1,10 @@
 package marktplaats.resources;
 
-import marktplaats.domain.Artikel;
-import marktplaats.domain.Gebruiker;
-import marktplaats.domain.Product;
+import marktplaats.domain.*;
 import marktplaats.dto.ArtikelDto;
+import marktplaats.dto.BezorgwijzeDto;
+import marktplaats.dto.CategorieDto;
+import marktplaats.dto.VerkoperDto;
 import marktplaats.services.ZoekArtikelenService;
 
 import javax.inject.Inject;
@@ -30,27 +31,67 @@ public class ZoekArtikelenResource {
     @Path("artikel")
     @Produces(MediaType.APPLICATION_JSON)
     public ArtikelDto testArtikelZoeken() {
-        List<Artikel> artikelen = zoekArtikelenService.getArtikelen(4);
         List<Product> producten = zoekArtikelenService.getProducten(4);
-        return mapArtikelEnProductNaarDto(artikelen, producten);
+//        List<Artikel> artikelen = zoekArtikelenService.getArtikelen(4);
+        return mapProductNaarDto(producten);
     }
 
-    private ArtikelDto mapArtikelEnProductNaarDto(List<Artikel> artikelen, List<Product> producten) {
-        Artikel artikel = artikelen.get(0);
+    @GET
+    @Path(("artikel2"))
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response testArtikel() {
+        List<Product> producten = zoekArtikelenService.getProducten(4);
+        return Response.ok(producten).build();
+    }
+
+    private ArtikelDto mapProductNaarDto(List<Product> producten) {
         Product product = producten.get(0);
         ArtikelDto dto = new ArtikelDto();
 
-        dto.setId(artikel.getId());
-        dto.setArtikelNaam(artikel.getArtikelNaam());
-        dto.setPrijs(artikel.getPrijs());
-        dto.setOmschrijving(artikel.getOmschrijving());
-        //dto.setVerkoper(artikel.getVerkoper());
-        dto.setBod(artikel.isBod());
-        dto.setTijdVanPlaatsen(artikel.getTijdVanPlaatsen());
-
-        //dto.setBezorgwijzen(product.getBezorgwijzen());
+        dto.setId(product.getId());
+        dto.setArtikelNaam(product.getArtikelNaam());
+        dto.setPrijs(product.getPrijs());
+        dto.setOmschrijving(product.getOmschrijving());
+        dto.setVerkoper(mapVerkoperNaarDto(producten));
+        dto.setBod(product.isBod());
+        dto.setTijdVanPlaatsen(product.getTijdVanPlaatsen());
+//        dto.setBezorgwijzen(product.getBezorgwijzen());
         dto.setBijlagen(product.getBijlagen());
-        //dto.setCategories(product.getCategorie());
+
+        for (int i = 0; i < product.getBezorgwijzen().size(); i++)  {
+            dto.setBezorgwijze(mapBezorgwijzeNaarDto(producten, i));
+        }
+
+        for (Categorie categorie : product.getCategorie()) {
+            dto.setCategories(mapCategorieNaarDto(producten));
+        }
+        return dto;
+    }
+
+    private BezorgwijzeDto mapBezorgwijzeNaarDto(List<Product> producten, int index) {
+        Product product = producten.get(0);
+        BezorgwijzeDto dto = new BezorgwijzeDto();
+
+        dto.setBezorgwijze(product.getBezorgwijzen().get(index).name());
+
+        return dto;
+    }
+
+    private CategorieDto mapCategorieNaarDto(List<Product> producten) {
+        Product product = producten.get(0);
+        CategorieDto dto = new CategorieDto();
+
+        dto.setCategorieNaam(product.getCategorie().get(0).getCategorieNaam());
+
+        return dto;
+    }
+
+    private VerkoperDto mapVerkoperNaarDto(List<Product> producten) {
+        Product product = producten.get(0);
+        VerkoperDto dto = new VerkoperDto();
+
+        dto.setId(product.getVerkoper().getId());
+        dto.setEmail(product.getVerkoper().getEmail());
 
         return dto;
     }

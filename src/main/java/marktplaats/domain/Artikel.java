@@ -2,6 +2,8 @@ package marktplaats.domain;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -19,6 +21,7 @@ public class Artikel extends AbstracteEntiteit {
 
     @NotNull
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "artikel")
+    @LazyCollection(LazyCollectionOption.FALSE)
     protected List<Categorie> categorie = new ArrayList<>();
 
     @NotNull

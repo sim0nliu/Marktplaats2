@@ -2,6 +2,8 @@ package marktplaats.domain;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -15,8 +17,9 @@ public class Product extends Artikel {
 
     @NotNull
     @ElementCollection
-    @CollectionTable(name = "bezorgwijzeProduct")
+    @CollectionTable(name = "bezorgwijzeproduct")
     @Enumerated(EnumType.STRING)
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Bezorgwijze> bezorgwijzen;
 
     //BLOB

@@ -33,4 +33,10 @@ public class ZoekDao {
         query.setParameter("id", index);
         return query.getResultList();
     }
+
+//    public List<Product> zoekProductOp(long index) {
+//        TypedQuery<Product> query = em.createQuery("select p from Product p join fetch p.categorie join fetch p.verkoper join fetch p.bezorgwijzen where p.id = :id", Product.class);
+//        query.setParameter("id", index);
+//        return query.getResultList();
+//    }
 }
