@@ -22,10 +22,16 @@ public class GebruikerDao {
         return merged;
     }
 
-    public Gebruiker getGebruikerEmailEnWachtwoord(String email, String wachtwoord) {
+    public Gebruiker getGebruikerMetEmailEnWachtwoord(String email, byte[] wachtwoord) {
         TypedQuery<Gebruiker> query = em.createQuery("SELECT g FROM Gebruiker g WHERE  g.email = :email AND g.wachtwoord = :wachtwoord", Gebruiker.class);
         query.setParameter("email", email);
         query.setParameter("wachtwoord", wachtwoord);
+        return query.getSingleResult();
+    }
+
+    public Gebruiker getGebruikerMetEmail(String email) {
+        TypedQuery<Gebruiker> query = em.createQuery("SELECT g FROM Gebruiker g WHERE  g.email = :email", Gebruiker.class);
+        query.setParameter("email", email);
         return query.getSingleResult();
     }
 }

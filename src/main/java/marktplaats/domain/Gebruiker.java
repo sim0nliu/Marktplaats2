@@ -1,8 +1,8 @@
 package marktplaats.domain;
 
-import marktplaats.domain.exceptions.InvalidPasswordException;
 import lombok.Getter;
 import lombok.Setter;
+import marktplaats.domain.exceptions.InvalidPasswordException;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -11,7 +11,6 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
-
 import java.util.List;
 
 @Getter
@@ -57,33 +56,27 @@ public class Gebruiker extends AbstracteEntiteit {
 
     //TODO: response entity moet exception afvangen
     public void setWachtwoord(String password) throws InvalidPasswordException {
-        if(!checkPassword(password,this.email)) {
+        if (!checkPassword(password, this.email)) {
             throw new InvalidPasswordException();
         }
         this.wachtwoord = encodePassword(password);
     }
 
-    public void verkoopArtikel(Artikel artikel){
-        this.lijstVanTeVerkopenArtikelen.add(artikel);
-        artikel.setVerkoper(this);
-    }
-
-    private byte[] encodePassword(String password)  {
+    private byte[] encodePassword(String password) {
         MessageDigest digest;
         try {
             digest = MessageDigest.getInstance("SHA-256");
-        }catch (NoSuchAlgorithmException ex)
-        {
-            throw new RuntimeException(ex.getCause()+" "+ex.getMessage());
+        } catch (NoSuchAlgorithmException ex) {
+            throw new RuntimeException(ex.getCause() + " " + ex.getMessage());
         }
         byte[] encodedhash = digest.digest(
                 password.getBytes(StandardCharsets.UTF_8));
         return encodedhash;
     }
 
-    public boolean verifyPassword(char[] password){
+    public boolean verifyPassword(char[] password) {
         StringBuilder passwordS = new StringBuilder("");
-        for (char x :password){
+        for (char x : password) {
             passwordS.append(x);
         }
         return verifyPassword(passwordS.toString());
@@ -112,6 +105,11 @@ public class Gebruiker extends AbstracteEntiteit {
 
     public void addArtikel(Artikel artikel) {
         lijstVanTeVerkopenArtikelen.add(artikel);
+        artikel.setVerkoper(this);
+    }
+
+    public void voegArtikelToeAanLijstVanTeVerkopenArtikelen(Artikel artikel) {
+        this.lijstVanTeVerkopenArtikelen.add(artikel);
         artikel.setVerkoper(this);
     }
 }

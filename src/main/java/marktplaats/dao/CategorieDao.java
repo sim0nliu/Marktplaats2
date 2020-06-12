@@ -27,11 +27,6 @@ public class CategorieDao {
         }
     }
 
-//    public List<String> vindAlleDistinctCategorieen() {
-//        Query query = em.createNativeQuery("SELECT DISTINCT categorieNaam FROM Categorie");
-//        return query.getResultList();
-//    }
-
     private List<Categorie> categorieVindenMetNaam(String naamCategorie) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Categorie> query = cb.createQuery(Categorie.class);
@@ -42,8 +37,8 @@ public class CategorieDao {
         return em.createQuery(query).getResultList();
     }
 
-    public List<Categorie> getAlleCategorieen() {
-        Query query = em.createNativeQuery("SELECT categorieNaam FROM Categorie");
+    public List<Categorie> getAlleDistinctCategorieen() {
+        Query query = em.createNativeQuery("SELECT DISTINCT categorieNaam FROM Categorie");
         return query.getResultList();
     }
 }
