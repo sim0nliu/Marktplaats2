@@ -124,6 +124,9 @@ public class Gebruiker extends AbstracteEntiteit {
     }
 
     public static boolean isValidEmail(String email) {
+        if(email.length()>64){
+            return false;
+        }
         String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
         return email.matches(regex);
     }
@@ -131,5 +134,7 @@ public class Gebruiker extends AbstracteEntiteit {
     public static boolean containsNONumber(String tobechecked) {
         return !tobechecked.matches(".*\\d.*");
     }
+
+    public static boolean containsNoLetter(String tobechecked) {return !tobechecked.matches(".*\\s.*");}
 
 }
