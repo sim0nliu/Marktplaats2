@@ -26,11 +26,10 @@ public class Gebruiker extends AbstracteEntiteit {
 
     private String adres;
 
-    @NotNull
-    @ElementCollection
-    @CollectionTable(name = "bezorgwijzeverkoper")
-    @Enumerated(EnumType.STRING)
-    private List<Bezorgwijze> bezorgwijzen;
+    private boolean afhalenThuis;
+    private boolean afhalenMagazijn;
+    private boolean versturen;
+    private boolean versturenOnderRembours;
 
     @Lob
     @NotNull

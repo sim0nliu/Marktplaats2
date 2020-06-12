@@ -13,11 +13,10 @@ import java.util.List;
 @Entity
 public class Product extends Artikel {
 
-    @NotNull
-    @ElementCollection
-    @CollectionTable(name = "bezorgwijzeProduct")
-    @Enumerated(EnumType.STRING)
-    private List<Bezorgwijze> bezorgwijzen;
+    private boolean afhalenThuis;
+    private boolean afhalenMagazijn;
+    private boolean versturen;
+    private boolean versturenOnderRembours;
 
     //BLOB
     private byte[] bijlagen;
@@ -25,15 +24,14 @@ public class Product extends Artikel {
     public Product() {
     }
 
-    public Product(List<Categorie> categorie, String artikelNaam, String omschrijving, BigDecimal prijs, List<Bezorgwijze> bezorgwijzen) {
+    public Product(List<Categorie> categorie, String artikelNaam, String omschrijving, BigDecimal prijs, boolean afhalenThuis, boolean afhalenMagazijn, boolean versturen, boolean versturenOnderRembours) {
         setCategorie(categorie);
         setArtikelNaam(artikelNaam);
         setOmschrijving(omschrijving);
         setPrijs(prijs);
-        setBezorgwijzen(bezorgwijzen);
+        setAfhalenThuis(afhalenThuis);
+        setAfhalenMagazijn(afhalenMagazijn);
+        setVersturen(versturen);
+        setVersturenOnderRembours(versturenOnderRembours);
     }
-
-//    public void setBezorgwijzen(List<Bezorgwijze> bezorgwijzen) {
-//        this.bezorgwijzen = bezorgwijzen;
-//    }
 }

@@ -48,7 +48,6 @@ public class ZoekArtikelenResource {
         dto.setBod(artikel.isBod());
         dto.setTijdVanPlaatsen(artikel.getTijdVanPlaatsen());
 
-        //dto.setBezorgwijzen(product.getBezorgwijzen());
         dto.setBijlagen(product.getBijlagen());
         //dto.setCategories(product.getCategorie());
 

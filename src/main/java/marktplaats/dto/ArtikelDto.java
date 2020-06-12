@@ -3,7 +3,6 @@ package marktplaats.dto;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-import marktplaats.domain.Bezorgwijze;
 import marktplaats.domain.Categorie;
 import marktplaats.domain.Gebruiker;
 
@@ -20,9 +19,12 @@ public class ArtikelDto {
     private Gebruiker verkoper;
     private boolean bod;
     private LocalDate tijdVanPlaatsen;
-    private List<Bezorgwijze> bezorgwijzen;
     private byte[] bijlagen;
     private List<Categorie> categories;
+    private boolean afhalenThuis;
+    private boolean afhalenMagazijn;
+    private boolean versturen;
+    private boolean versturenOnderRembours;
 
     public ArtikelDto() { }
 }

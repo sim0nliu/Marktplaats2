@@ -1,7 +1,6 @@
 package marktplaats.resources;
 
 import marktplaats.domain.Artikel;
-import marktplaats.domain.Bezorgwijze;
 import marktplaats.domain.Categorie;
 import marktplaats.domain.Product;
 import marktplaats.services.VerkoopProductService;
@@ -64,7 +63,7 @@ public class VerkoopProductResource {
                 "Nieuw Product",
                 "Nieuwe Omschrijving",
                 new BigDecimal("1337"),
-                Arrays.asList(Bezorgwijze.VERSTUREN));
+                true, true, true, true);
 
         return verkoopProductService.verkoopArtikel(teVerkopenProduct);
     }
