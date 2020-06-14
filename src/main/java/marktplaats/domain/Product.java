@@ -35,8 +35,4 @@ public class Product extends Artikel {
         setPrijs(prijs);
         setBezorgwijzen(bezorgwijzen);
     }
-
-//    public void setBezorgwijzen(List<Bezorgwijze> bezorgwijzen) {
-//        this.bezorgwijzen = bezorgwijzen;
-//    }
 }
