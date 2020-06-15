@@ -1,8 +1,6 @@
 package marktplaats.services;
 
-import marktplaats.domain.Artikel;
 import marktplaats.domain.Gebruiker;
-import marktplaats.domain.Product;
 import marktplaats.domain.exceptions.InvalidEmailException;
 import marktplaats.domain.exceptions.InvalidPasswordException;
 import marktplaats.dto.GebruikerDto;
@@ -11,13 +9,12 @@ import marktplaats.factories.GebruikerType;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import java.util.List;
 
 @Stateless
 public class GebruikerService {
 
     @Inject
-    GebruikerFactory gebruikerFactory;
+    private GebruikerFactory gebruikerFactory;
 
     public GebruikerDto mapGebruikerNaarDto(Gebruiker gebruiker) {
         GebruikerDto dto = new GebruikerDto();
@@ -38,7 +35,7 @@ public class GebruikerService {
         );
         gebruiker.setRegelementAkkoord(gebruikerDto.isRegelementAkkoord());
         gebruiker.setAdres(gebruikerDto.getAdres());
-        gebruiker.setBezorgwijzen(gebruikerDto.getBezorgwijzen() );
+        gebruiker.setBezorgwijzen(gebruikerDto.getBezorgwijzen());
         return gebruiker;
     }
 }

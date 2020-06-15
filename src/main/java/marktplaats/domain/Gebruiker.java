@@ -1,21 +1,22 @@
 package marktplaats.domain;
 
-import marktplaats.domain.exceptions.InvalidEmailException;
-import marktplaats.domain.exceptions.InvalidPasswordException;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
+import marktplaats.domain.exceptions.InvalidEmailException;
+import marktplaats.domain.exceptions.InvalidPasswordException;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
-
 import java.util.List;
+import java.util.Set;
+
+import static javax.persistence.FetchType.EAGER;
+
+// import javax.validation.constraints.Email;
 
 @Getter
 @Setter
@@ -23,20 +24,18 @@ import java.util.List;
 //@Inheritance(strategy = TABLE_PER_CLASS)
 public class Gebruiker extends AbstracteEntiteit {
 
-
-    @Email
+    // @Email
     @NotNull
-    @Column(unique = true, columnDefinition="VARCHAR(64)")
+    @Column(unique = true, columnDefinition = "VARCHAR(64)")
     protected String email;
 
     private String adres;
 
     @NotNull
-    @ElementCollection
+    @ElementCollection(fetch = EAGER)
     @CollectionTable(name = "bezorgwijzeVerkoper")
     @Enumerated(EnumType.STRING)
-    @LazyCollection(LazyCollectionOption.FALSE)
-    private List<Bezorgwijze> bezorgwijzen;
+    private Set<Bezorgwijze> bezorgwijzen;
 
     @Lob
     @NotNull
@@ -44,7 +43,6 @@ public class Gebruiker extends AbstracteEntiteit {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "verkoper")
     private List<Artikel> lijstVanTeVerkopenArtikelen;
-
 
     @NotNull
     boolean regelementAkkoord;
@@ -67,9 +65,9 @@ public class Gebruiker extends AbstracteEntiteit {
     }
 
     public void setEmailAdress(String emailAdress) throws InvalidEmailException {
-        if(isValidEmail(emailAdress)){
+        if (isValidEmail(emailAdress)) {
             this.email = emailAdress;
-        }else {
+        } else {
             throw new InvalidEmailException();
         }
 
@@ -83,7 +81,7 @@ public class Gebruiker extends AbstracteEntiteit {
         this.wachtwoord = encodePassword(password);
     }
 
-    public void verkoopArtikel(Artikel artikel){
+    public void verkoopArtikel(Artikel artikel) {
         this.lijstVanTeVerkopenArtikelen.add(artikel);
         artikel.setVerkoper(this);
     }
@@ -126,7 +124,7 @@ public class Gebruiker extends AbstracteEntiteit {
     }
 
     public static boolean isValidEmail(String email) {
-        if(email.length()>64){
+        if (email.length() > 64) {
             return false;
         }
         String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
@@ -145,8 +143,8 @@ public class Gebruiker extends AbstracteEntiteit {
     public long getId() {
         return this.id;
     }
-    public static boolean containsNoLetter(String tobechecked) {return !tobechecked.matches(".*\\s.*");}
 
+    public static boolean containsNoLetter(String tobechecked) {return !tobechecked.matches(".*\\s.*");}
 
     public void voegArtikelToeAanLijstVanTeVerkopenArtikelen(Artikel artikel) {
         this.lijstVanTeVerkopenArtikelen.add(artikel);

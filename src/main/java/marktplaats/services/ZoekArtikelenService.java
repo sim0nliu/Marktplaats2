@@ -5,20 +5,26 @@ import marktplaats.domain.Artikel;
 import marktplaats.domain.Gebruiker;
 import marktplaats.domain.Product;
 
+import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 import java.util.List;
 
+@Dependent
 public class ZoekArtikelenService {
 
     @Inject
-    ZoekDao zoekDao;
+    private ZoekDao zoekDao;
 
     public List<Artikel> getArtikelen(long id) {
         return zoekDao.zoekArtikelenOp(id);
     }
 
-    public List<Product> getProducten(long id) { return zoekDao.zoekProductOp(id); }
+    public List<Product> getProducten(long id) {
+        return zoekDao.zoekProductOp(id);
+    }
 
-    public List<Gebruiker> getGeberuikers(long id) { return zoekDao.zoekGebruikerOp(id); }
+    public List<Gebruiker> getGebruiker(long id) {
+        return zoekDao.zoekGebruikerOp(id);
+    }
 
 }
