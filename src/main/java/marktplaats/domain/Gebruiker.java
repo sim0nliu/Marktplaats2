@@ -6,7 +6,6 @@ import marktplaats.domain.exceptions.InvalidEmailException;
 import marktplaats.domain.exceptions.InvalidPasswordException;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -14,13 +13,17 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.List;
 
+import static javax.persistence.FetchType.EAGER;
+
+// import javax.validation.constraints.Email;
+
 @Getter
 @Setter
 @Entity
 //@Inheritance(strategy = TABLE_PER_CLASS)
 public class Gebruiker extends AbstracteEntiteit {
 
-    @Email
+    // @Email
     @NotNull
     @Column(unique = true, columnDefinition = "VARCHAR(64)")
     protected String email;
@@ -28,7 +31,7 @@ public class Gebruiker extends AbstracteEntiteit {
     private String adres;
 
     @NotNull
-    @ElementCollection(fetch = FetchType.EAGER)
+    @ElementCollection(fetch = EAGER)
     @CollectionTable(name = "bezorgwijzeVerkoper")
     @Enumerated(EnumType.STRING)
     private List<Bezorgwijze> bezorgwijzen;
