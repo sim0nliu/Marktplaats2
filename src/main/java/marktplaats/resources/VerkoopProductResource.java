@@ -64,7 +64,7 @@ public class VerkoopProductResource {
                 "Nieuw Product",
                 "Nieuwe Omschrijving",
                 new BigDecimal("1337"),
-                Arrays.asList(Bezorgwijze.VERSTUREN));
+                Arrays.asList(Bezorgwijze.Versturen));
 
         return verkoopProductService.verkoopArtikel(teVerkopenProduct);
     }

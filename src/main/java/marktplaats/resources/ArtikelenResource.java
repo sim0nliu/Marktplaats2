@@ -1,6 +1,9 @@
 package marktplaats.resources;
 
-import marktplaats.domain.*;
+import marktplaats.domain.Artikel;
+import marktplaats.domain.Categorie;
+import marktplaats.domain.Gebruiker;
+import marktplaats.domain.Product;
 import marktplaats.dto.ArtikelDto;
 import marktplaats.dto.BezorgwijzeDto;
 import marktplaats.dto.CategorieDto;
@@ -10,13 +13,14 @@ import marktplaats.services.ZoekArtikelenService;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
-@Path("zoek")
-public class ZoekArtikelenResource {
+@Path("artikelen")
+public class ArtikelenResource {
 
     @Inject
     ZoekArtikelenService zoekArtikelenService;
@@ -26,12 +30,11 @@ public class ZoekArtikelenResource {
         return Response.ok().entity("HOI").build();
     }
 
-
     @GET
-    @Path("artikel")
+    @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public ArtikelDto testArtikelZoeken() {
-        List<Product> producten = zoekArtikelenService.getProducten(4);
+    public ArtikelDto testArtikelZoeken(@PathParam("id") long id) {
+        List<Product> producten = zoekArtikelenService.getProducten(id);
 //        List<Artikel> artikelen = zoekArtikelenService.getArtikelen(4);
         return mapProductNaarDto(producten);
     }
@@ -58,7 +61,7 @@ public class ZoekArtikelenResource {
 //        dto.setBezorgwijzen(product.getBezorgwijzen());
         dto.setBijlagen(product.getBijlagen());
 
-        for (int i = 0; i < product.getBezorgwijzen().size(); i++)  {
+        for (int i = 0; i < product.getBezorgwijzen().size(); i++) {
             dto.setBezorgwijze(mapBezorgwijzeNaarDto(producten, i));
         }
 

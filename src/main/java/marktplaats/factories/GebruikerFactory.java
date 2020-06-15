@@ -4,16 +4,19 @@ import marktplaats.domain.Bezorgwijze;
 import marktplaats.domain.Gebruiker;
 import marktplaats.domain.exceptions.InvalidEmailException;
 import marktplaats.domain.exceptions.InvalidPasswordException;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import marktplaats.domain.exceptions.NotImplementedException;
 
+import javax.enterprise.context.Dependent;
 import java.util.Arrays;
 import java.util.List;
 
+@Dependent
 public class GebruikerFactory {
-    private final List<Bezorgwijze> standaardBezorgwijze = Arrays.asList(new Bezorgwijze[]{Bezorgwijze.AFHALENMAGAZIJN});
+
+    private final List<Bezorgwijze> standaardBezorgwijze = Arrays.asList(Bezorgwijze.AfhalenMagazijn);
 
     public Gebruiker create(GebruikerType gebruikerType, String email, String Password) throws InvalidPasswordException, InvalidEmailException {
-        switch (gebruikerType){
+        switch (gebruikerType) {
             case BEZOEKER:
                 return creerBezoeker(email, Password);
             case MEDEWERKER:
