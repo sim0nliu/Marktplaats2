@@ -6,6 +6,8 @@ import marktplaats.dao.GebruikerDao;
 import marktplaats.domain.Artikel;
 import marktplaats.domain.Categorie;
 import marktplaats.domain.Gebruiker;
+import marktplaats.domain.Product;
+import marktplaats.dto.ArtikelDto;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -39,5 +41,16 @@ public class VerkoopProductService {
 
         gebruiker.voegArtikelToeAanLijstVanTeVerkopenArtikelen(artikel);
         return artikel;
+    }
+
+
+    public Product mapProductDtoNaarProduct(ArtikelDto artikelDto) {
+        Product nieuwProduct = new Product();
+
+        nieuwProduct.setArtikelNaam(artikelDto.getArtikelNaam());
+        nieuwProduct.setCategorie(artikelDto.getCategorie());
+        nieuwProduct.setOmschrijving(artikelDto.getOmschrijving());
+        nieuwProduct.setPrijs(artikelDto.getPrijs());
+        return nieuwProduct;
     }
 }

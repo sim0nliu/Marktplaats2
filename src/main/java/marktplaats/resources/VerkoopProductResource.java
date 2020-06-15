@@ -17,8 +17,6 @@ import javax.ws.rs.core.Response;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @Path("verkoop")
 public class VerkoopProductResource {
@@ -42,15 +40,22 @@ public class VerkoopProductResource {
         return Response.ok(categorieen).build();
     }
 
-//    //TODO Fix methode
-//    @POST
-//    @Path("testAngular")
-//    @Consumes(MediaType.APPLICATION_JSON)
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public Response postArtikel(ArtikelDto artikelDto) {
-//        System.out.println(artikelDto.getArtikelNaam());
-//        return Response.status(201).entity("OK").build();
-//    }
+    //TODO Fix methode
+    @POST
+    @Path("testAngular")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response postArtikel(ArtikelDto artikelDto) {
+
+        Product product = verkoopProductService.mapProductDtoNaarProduct(artikelDto);
+
+        System.out.println(product.getArtikelNaam());
+        System.out.println(product.getCategorie());
+        System.out.println(product.getOmschrijving());
+        System.out.println(product.getPrijs());
+
+        return Response.status(201).entity("OK").build();
+    }
 
 //    @POST
 //    @Path("testAngular")
@@ -81,89 +86,89 @@ public class VerkoopProductResource {
 //
 //    }
 
-    @POST
-    @Path("testAngular")
-    @Consumes(MediaType.APPLICATION_JSON)
-    public void addArtikel(String inputStream) {
-
-        Pattern p = Pattern.compile("\"([^\"]*)\"");
-        Matcher m = p.matcher(inputStream);
-
-        int counter = 0;
-
-        String productNaam = "";
-        String categorie = "";
-        String omschrijving = "";
-        String prijs = "";
-        String bijlage = "";
-        String verzendmethode = "";
-
-        while (m.find()) {
-            counter++;
-            switch (m.group(1)) {
-                case "productNaam":
-                    System.out.println("case: productNaam");
-                    counter = 0;
-                    break;
-                case "categorie":
-                    System.out.println("case: categorie ");
-                    counter = 10;
-                    break;
-                case "omschrijving":
-                    System.out.println("case: omschrijving ");
-                    counter = 20;
-                    break;
-                case "prijs":
-                    System.out.println("case: prijs ");
-                    counter = 30;
-                    break;
-                case "bijlage":
-                    System.out.println("case: bijlage ");
-                    counter = 40;
-                    break;
-                case "verzendmethode":
-                    System.out.println("case: verzendmethode ");
-                    counter = 50;
-                    break;
-            }
-
-            if (counter < 10 && counter > 0) {
-                System.out.println("counter < 10 > 0" + m.group(1));
-                productNaam += m.group(1);
-            } else if (counter < 20 && counter > 10) {
-                System.out.println("counter < 20 > 10" + m.group(1));
-                System.out.println(m.group(1));
-                categorie += m.group(1);
-            } else if (counter < 30 && counter > 20) {
-                System.out.println("counter < 30 > 20" + m.group(1));
-                System.out.println(m.group(1));
-                omschrijving += m.group(1);
-            } else if (counter < 40 && counter > 30) {
-                System.out.println("counter < 40 > 30" + m.group(1));
-                System.out.println(m.group(1));
-                prijs += m.group(1);
-            } else if (counter < 50 && counter > 40) {
-                System.out.println("counter < 50 > 40" + m.group(1));
-                System.out.println(m.group(1));
-                bijlage += m.group(1);
-            } else if (counter < 60 && counter > 50) {
-                System.out.println("counter < 60 > 50" + m.group(1));
-                System.out.println(m.group(1));
-                verzendmethode += m.group(1);
-            }
-        }
-
-        Product teVerkopenProduct = new Product(
-                Arrays.asList(new Categorie(categorie)),
-                productNaam,
-                omschrijving,
-                new BigDecimal(Integer.parseInt(prijs)),
-                Arrays.asList(Bezorgwijze.Versturen));
-
-        verkoopProductService.verkoopArtikel(teVerkopenProduct);
-
-        mapProductNaarDto(Arrays.asList(teVerkopenProduct));
-    }
+//    @POST
+//    @Path("testAngular")
+//    @Consumes(MediaType.APPLICATION_JSON)
+//    public void addArtikel(String inputStream) {
+//
+//        Pattern p = Pattern.compile("\"([^\"]*)\"");
+//        Matcher m = p.matcher(inputStream);
+//
+//        int counter = 0;
+//
+//        String productNaam = "";
+//        String categorie = "";
+//        String omschrijving = "";
+//        String prijs = "";
+//        String bijlage = "";
+//        String verzendmethode = "";
+//
+//        while (m.find()) {
+//            counter++;
+//            switch (m.group(1)) {
+//                case "productNaam":
+//                    System.out.println("case: productNaam");
+//                    counter = 0;
+//                    break;
+//                case "categorie":
+//                    System.out.println("case: categorie ");
+//                    counter = 10;
+//                    break;
+//                case "omschrijving":
+//                    System.out.println("case: omschrijving ");
+//                    counter = 20;
+//                    break;
+//                case "prijs":
+//                    System.out.println("case: prijs ");
+//                    counter = 30;
+//                    break;
+//                case "bijlage":
+//                    System.out.println("case: bijlage ");
+//                    counter = 40;
+//                    break;
+//                case "verzendmethode":
+//                    System.out.println("case: verzendmethode ");
+//                    counter = 50;
+//                    break;
+//            }
+//
+//            if (counter < 10 && counter > 0) {
+//                System.out.println("counter < 10 > 0" + m.group(1));
+//                productNaam += m.group(1);
+//            } else if (counter < 20 && counter > 10) {
+//                System.out.println("counter < 20 > 10" + m.group(1));
+//                System.out.println(m.group(1));
+//                categorie += m.group(1);
+//            } else if (counter < 30 && counter > 20) {
+//                System.out.println("counter < 30 > 20" + m.group(1));
+//                System.out.println(m.group(1));
+//                omschrijving += m.group(1);
+//            } else if (counter < 40 && counter > 30) {
+//                System.out.println("counter < 40 > 30" + m.group(1));
+//                System.out.println(m.group(1));
+//                prijs += m.group(1);
+//            } else if (counter < 50 && counter > 40) {
+//                System.out.println("counter < 50 > 40" + m.group(1));
+//                System.out.println(m.group(1));
+//                bijlage += m.group(1);
+//            } else if (counter < 60 && counter > 50) {
+//                System.out.println("counter < 60 > 50" + m.group(1));
+//                System.out.println(m.group(1));
+//                verzendmethode += m.group(1);
+//            }
+//        }
+//
+//        Product teVerkopenProduct = new Product(
+//                Arrays.asList(new Categorie(categorie)),
+//                productNaam,
+//                omschrijving,
+//                new BigDecimal(Integer.parseInt(prijs)),
+//                Arrays.asList(Bezorgwijze.Versturen));
+//
+//        verkoopProductService.verkoopArtikel(teVerkopenProduct);
+//
+//        mapProductNaarDto(Arrays.asList(teVerkopenProduct));
+//    }
 
     @POST
     @Path("item")
@@ -181,7 +186,7 @@ public class VerkoopProductResource {
         return mapProductNaarDto(Arrays.asList(teVerkopenProduct));
     }
 
-    private ArtikelDto mapProductNaarDto(List<Product> producten) {
+    public ArtikelDto mapProductNaarDto(List<Product> producten) {
         Product product = producten.get(0);
         ArtikelDto dto = new ArtikelDto();
 
@@ -192,7 +197,6 @@ public class VerkoopProductResource {
         dto.setVerkoper(mapVerkoperNaarDto(producten));
         dto.setBod(product.isBod());
         dto.setTijdVanPlaatsen(product.getTijdVanPlaatsen());
-//        dto.setBezorgwijzen(product.getBezorgwijzen());
         dto.setBijlagen(product.getBijlagen());
 
         for (int i = 0; i < product.getBezorgwijzen().size(); i++) {
@@ -232,5 +236,6 @@ public class VerkoopProductResource {
 
         return dto;
     }
+
 
 }
