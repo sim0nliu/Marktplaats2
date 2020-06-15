@@ -12,6 +12,7 @@ import marktplaats.dto.ArtikelDto;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import java.util.List;
+import java.util.Set;
 
 @Stateless
 public class VerkoopProductService {
@@ -48,7 +49,7 @@ public class VerkoopProductService {
         Product nieuwProduct = new Product();
 
         nieuwProduct.setArtikelNaam(artikelDto.getArtikelNaam());
-        nieuwProduct.setCategorie(artikelDto.getCategorie());
+        nieuwProduct.setCategorie((Set<Categorie>) artikelDto.getCategorie());
         nieuwProduct.setOmschrijving(artikelDto.getOmschrijving());
         nieuwProduct.setPrijs(artikelDto.getPrijs());
         return nieuwProduct;

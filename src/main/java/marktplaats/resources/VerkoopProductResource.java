@@ -2,12 +2,12 @@ package marktplaats.resources;
 
 import marktplaats.dao.ArtikelDao;
 import marktplaats.domain.Categorie;
+import marktplaats.domain.Product;
+import marktplaats.dto.ArtikelDto;
 import marktplaats.services.VerkoopProductService;
 
 import javax.inject.Inject;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.math.BigDecimal;
@@ -35,21 +35,21 @@ public class VerkoopProductResource {
     }
 
 //    //TODO Fix methode
-//    @POST
-//    @Path("testAngular")
-//    @Consumes(MediaType.APPLICATION_JSON)
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public Response postArtikel(ArtikelDto artikelDto) {
-//
-//        Product product = verkoopProductService.mapProductDtoNaarProduct(artikelDto);
-//
-//        System.out.println(product.getArtikelNaam());
-//        System.out.println(product.getCategorie());
-//        System.out.println(product.getOmschrijving());
-//        System.out.println(product.getPrijs());
-//
-//        return Response.status(201).entity("OK").build();
-//    }
+    @POST
+    @Path("testAngular")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response postArtikel(ArtikelDto artikelDto) {
+
+        Product product = verkoopProductService.mapProductDtoNaarProduct(artikelDto);
+
+        System.out.println(product.getArtikelNaam());
+        System.out.println(product.getCategorie());
+        System.out.println(product.getOmschrijving());
+        System.out.println(product.getPrijs());
+
+        return Response.status(201).entity("OK").build();
+    }
 
 //    @POST
 //    @Path("testAngular")
