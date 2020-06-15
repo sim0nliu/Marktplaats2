@@ -4,8 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import marktplaats.domain.exceptions.InvalidEmailException;
 import marktplaats.domain.exceptions.InvalidPasswordException;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -14,6 +12,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 import static javax.persistence.FetchType.EAGER;
 
@@ -36,8 +35,7 @@ public class Gebruiker extends AbstracteEntiteit {
     @ElementCollection(fetch = EAGER)
     @CollectionTable(name = "bezorgwijzeVerkoper")
     @Enumerated(EnumType.STRING)
-    @LazyCollection(LazyCollectionOption.FALSE)
-    private List<Bezorgwijze> bezorgwijzen;
+    private Set<Bezorgwijze> bezorgwijzen;
 
     @Lob
     @NotNull

@@ -7,8 +7,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter @Setter
 @Entity
@@ -17,7 +17,7 @@ public class Artikel extends AbstracteEntiteit {
 
     @NotNull
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "artikel", fetch = FetchType.EAGER)
-    protected List<Categorie> categorie = new ArrayList<>();
+    protected Set<Categorie> categorie = new HashSet<>();
 
     @NotNull
     protected String artikelNaam;

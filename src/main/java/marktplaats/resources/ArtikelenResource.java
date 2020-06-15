@@ -84,7 +84,9 @@ public class ArtikelenResource {
         Product product = producten.get(0);
         CategorieDto dto = new CategorieDto();
 
-        dto.setCategorieNaam(product.getCategorie().get(0).getCategorieNaam());
+        for (Categorie cat : product.getCategorie()) {
+            dto.setCategorieNaam(cat.getCategorieNaam());
+        }
 
         return dto;
     }

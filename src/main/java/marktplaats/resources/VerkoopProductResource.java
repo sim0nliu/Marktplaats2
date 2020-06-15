@@ -12,7 +12,10 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+
+import static java.util.Collections.singletonList;
 
 @Path("verkoop")
 public class VerkoopProductResource {
@@ -52,7 +55,6 @@ public class VerkoopProductResource {
 //                Arrays.asList(Bezorgwijze.VERSTUREN));
 //    }
 
-
     @POST
     @Path("item")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -60,7 +62,7 @@ public class VerkoopProductResource {
     public Artikel addArtikel() {
 
         Product teVerkopenProduct = new Product(
-                Arrays.asList(new Categorie("Nieuwe Categorie")),
+                new HashSet<>(singletonList(new Categorie("Nieuwe Categorie"))),
                 "Nieuw Product",
                 "Nieuwe Omschrijving",
                 new BigDecimal("1337"),
@@ -68,6 +70,5 @@ public class VerkoopProductResource {
 
         return verkoopProductService.verkoopArtikel(teVerkopenProduct);
     }
-
 
 }
