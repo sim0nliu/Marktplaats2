@@ -3,15 +3,16 @@ package marktplaats.dto;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-import marktplaats.domain.Bezorgwijze;
 import marktplaats.domain.Categorie;
-import marktplaats.domain.Gebruiker;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+@Getter
+@Setter
 @Data
 public class ArtikelDto {
     private long id;
@@ -19,14 +20,16 @@ public class ArtikelDto {
     private BigDecimal prijs;
     private String omschrijving;
     private VerkoperDto verkoper;
-    private boolean bod;
     private LocalDate tijdVanPlaatsen;
-    private List<BezorgwijzeDto> bezorgwijzen;
     private byte[] bijlagen;
+    private boolean bod;
+    private List<BezorgwijzeDto> bezorgwijzen;
+    private String categorie;
     private List<CategorieDto> categories;
-    private List<String> categorien;
+    private List<String> categorieen;
 
-    public ArtikelDto() { }
+    public ArtikelDto() {
+    }
 
     public void setCategories(CategorieDto categorie) {
         if (categories == null) {
@@ -40,5 +43,14 @@ public class ArtikelDto {
             bezorgwijzen = new ArrayList<>();
         }
         bezorgwijzen.add(bezorgwijze);
+    }
+
+
+    public List<Categorie> getCategorie() {
+        return Arrays.asList(stringCategorieNaarCategorie(categorie));
+    }
+
+    public Categorie stringCategorieNaarCategorie(String stringCategorie) {
+        return new Categorie(stringCategorie);
     }
 }

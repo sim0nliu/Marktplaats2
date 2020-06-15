@@ -19,8 +19,12 @@ public class ZoekArtikelenService {
         return zoekDao.zoekArtikelenOp(id);
     }
 
-    public List<Product> getProducten(long id) { return zoekDao.zoekProductOp(id); }
+    public List<Product> getProducten(long id) {
+        return zoekDao.zoekProductOp(id);
+    }
 
-    public List<Gebruiker> getGeberuikers(long id) { return zoekDao.zoekGebruikerOp(id); }
+    public List<Gebruiker> getGebruiker(long id) {
+        return zoekDao.zoekGebruikerOp(id);
+    }
 
 }

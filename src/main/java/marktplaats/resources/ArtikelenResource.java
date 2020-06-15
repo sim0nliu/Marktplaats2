@@ -113,7 +113,7 @@ public class ArtikelenResource {
     @Path("gebruiker")
     @Produces(MediaType.APPLICATION_JSON)
     public Gebruiker testGebruikerZoeken() {
-        List<Gebruiker> gebruikers = zoekArtikelenService.getGeberuikers(1);
+        List<Gebruiker> gebruikers = zoekArtikelenService.getGebruiker(1);
         return gebruikers.get(0);
     }
 }
