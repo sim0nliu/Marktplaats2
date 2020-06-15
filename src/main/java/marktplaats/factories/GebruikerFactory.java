@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class GebruikerFactory {
-    private final List<Bezorgwijze> standaardBezorgwijze = Arrays.asList(new Bezorgwijze[]{Bezorgwijze.AFHALENMAGAZIJN});
+    private final List<Bezorgwijze> standaardBezorgwijze = Arrays.asList(new Bezorgwijze[]{Bezorgwijze.AfhalenMagazijn});
 
     public Gebruiker create(GebruikerType gebruikerType, String email, String Password) throws InvalidPasswordException, InvalidEmailException {
         switch (gebruikerType){
