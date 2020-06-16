@@ -47,4 +47,13 @@ public class Artikel extends AbstracteEntiteit {
     public long getId() {
         return id;
     }
+
+    public void setCategorie(String categorieNaam) {
+        Categorie categorie = new Categorie(categorieNaam);
+        this.categorie.add(categorie);
+    }
+
+    public void setCategorie(Set<Categorie> categorie) {
+        this.categorie = categorie;
+    }
 }

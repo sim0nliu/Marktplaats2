@@ -41,7 +41,7 @@ public class Gebruiker extends AbstracteEntiteit {
     @NotNull
     private byte[] wachtwoord;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "verkoper")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "verkoper", fetch = EAGER)
     private List<Artikel> lijstVanTeVerkopenArtikelen;
 
     @NotNull
@@ -81,7 +81,7 @@ public class Gebruiker extends AbstracteEntiteit {
         this.wachtwoord = encodePassword(password);
     }
 
-    public void verkoopArtikel(Artikel artikel) {
+    public void voegArtikelToeAanLijstVanTeVerkopenArtikelen(Artikel artikel) {
         this.lijstVanTeVerkopenArtikelen.add(artikel);
         artikel.setVerkoper(this);
     }
@@ -144,10 +144,9 @@ public class Gebruiker extends AbstracteEntiteit {
         return this.id;
     }
 
-    public static boolean containsNoLetter(String tobechecked) {return !tobechecked.matches(".*\\s.*");}
-
-    public void voegArtikelToeAanLijstVanTeVerkopenArtikelen(Artikel artikel) {
-        this.lijstVanTeVerkopenArtikelen.add(artikel);
-        artikel.setVerkoper(this);
+    public static boolean containsNoLetter(String tobechecked) {
+        return !tobechecked.matches(".*\\s.*");
     }
+
+
 }

@@ -8,13 +8,10 @@ import marktplaats.dto.ArtikelDto;
 import marktplaats.dto.BezorgwijzeDto;
 import marktplaats.dto.CategorieDto;
 import marktplaats.dto.VerkoperDto;
-import marktplaats.services.ZoekArtikelenService;
+import marktplaats.services.ArtikelenService;
 
 import javax.inject.Inject;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
@@ -23,7 +20,7 @@ import java.util.List;
 public class ArtikelenResource {
 
     @Inject
-    ZoekArtikelenService zoekArtikelenService;
+    private ArtikelenService artikelenService;
 
     @GET
     public Response helloworld1() {
@@ -34,7 +31,7 @@ public class ArtikelenResource {
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public ArtikelDto testArtikelZoeken(@PathParam("id") long id) {
-        List<Product> producten = zoekArtikelenService.getProducten(id);
+        List<Product> producten = artikelenService.getProducten(id);
 //        List<Artikel> artikelen = zoekArtikelenService.getArtikelen(4);
         return mapProductNaarDto(producten);
     }
@@ -43,7 +40,7 @@ public class ArtikelenResource {
     @Path(("artikel2"))
     @Produces(MediaType.APPLICATION_JSON)
     public Response testArtikel() {
-        List<Product> producten = zoekArtikelenService.getProducten(4);
+        List<Product> producten = artikelenService.getProducten(4);
         return Response.ok(producten).build();
     }
 
@@ -104,7 +101,7 @@ public class ArtikelenResource {
     @GET
     @Path("string")
     public String testArtikelZoekeString() {
-        List<Artikel> artikel = zoekArtikelenService.getArtikelen(4);
+        List<Artikel> artikel = artikelenService.getArtikelen(4);
         System.out.println("Artikel: " + artikel.get(0).getArtikelNaam());
         return artikel.get(0).getArtikelNaam();
     }
@@ -113,7 +110,27 @@ public class ArtikelenResource {
     @Path("gebruiker")
     @Produces(MediaType.APPLICATION_JSON)
     public Gebruiker testGebruikerZoeken() {
-        List<Gebruiker> gebruikers = zoekArtikelenService.getGebruiker(1);
+        List<Gebruiker> gebruikers = artikelenService.getGebruiker(1);
         return gebruikers.get(0);
+    }
+
+    @GET
+    @Path("categorieen")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAlleDistinctCategorieen() {
+        List<Categorie> categorieen = artikelenService.getCategorieen();
+        return Response.ok(categorieen).build();
+    }
+
+    @POST
+    @Path("verkoopArtikel")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response postArtikel(ArtikelDto artikelDto) {
+
+        Product teVerkopenProduct = artikelenService.mapProductDtoNaarProduct(artikelDto);
+
+        artikelenService.verkoopProduct(teVerkopenProduct);
+
+        return Response.status(201).entity("OK").build();
     }
 }

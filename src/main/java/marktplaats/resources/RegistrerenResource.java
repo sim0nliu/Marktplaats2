@@ -69,7 +69,7 @@ public class RegistrerenResource {
                 if(registrerenService.bestaatGebruiker(gebruiker.getEmail()))
                 {
                     throw new RuntimeException(
-                            "Eeen Account met dit email adres kan niet worden gemaakt, waarschijnlijk omdat het al bestaat"
+                            "Een Account met dit email adres kan niet worden gemaakt, waarschijnlijk omdat het al bestaat"
                     );
                 }else{
                     throw new RuntimeException("database failure");}

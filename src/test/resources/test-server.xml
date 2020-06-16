@@ -12,7 +12,7 @@
     <jpa defaultPersistenceProvider="org.hibernate.jpa.HibernatePersistenceProvider"/>
     <dataSource id="DefaultDataSource" jndiName="jdbc/mySQL" type="javax.sql.XADataSource">
         <jdbcDriver javax.sql.XADataSource="com.mysql.cj.jdbc.MysqlXADataSource" libraryRef="MySQLLib"/>
-        <properties databaseName="hellorest"
+        <properties databaseName="marktplaats"
                     user="root" password="root"
                     portNumber="3306" serverName="localhost"
                     useSSL="false" allowPublicKeyRetrieval="true" serverTimezone="UTC"/>

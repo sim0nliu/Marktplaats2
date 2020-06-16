@@ -25,7 +25,6 @@ public class ArtikelDao {
         return merged;
     }
 
-
     public List<Artikel> zoekId(long index) {
         TypedQuery<Artikel> query = em.createQuery("select a from Artikel a WHERE a.id = :id", Artikel.class);
         query.setParameter("id", index);
