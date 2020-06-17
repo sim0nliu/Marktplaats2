@@ -8,26 +8,29 @@ import marktplaats.domain.Categorie;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
 @Data
 public class ArtikelDto {
     private long id;
+
     private String artikelNaam;
+    private String categorie;
     private BigDecimal prijs;
     private String omschrijving;
+    private byte[] bijlagen;
+    private String verzendmethode;
+
+    private List<BezorgwijzeDto> bezorgwijzen;
     private VerkoperDto verkoper;
     private LocalDate tijdVanPlaatsen;
-    private byte[] bijlagen;
     private boolean bod;
-    private List<BezorgwijzeDto> bezorgwijzen;
-    private String categorie;
     private List<CategorieDto> categories;
     private List<String> categorieen;
-    //change
 
     public ArtikelDto() {
     }
@@ -46,12 +49,13 @@ public class ArtikelDto {
         bezorgwijzen.add(bezorgwijze);
     }
 
+    public String getCategorie() {
+        return categorie;
+    }
 
-   // public Set<Categorie> getCategorie() {
-       // return Arrays.asList(stringCategorieNaarCategorie(categorie));
-    //}
-
-    public Categorie stringCategorieNaarCategorie(String stringCategorie) {
-        return new Categorie(stringCategorie);
+    public Set<Categorie> stringCategorieNaarSetCategorie(String stringCategorie) {
+        Set<Categorie> categorieSet = new HashSet<>();
+        categorieSet.add(new Categorie(stringCategorie));
+        return categorieSet;
     }
 }
