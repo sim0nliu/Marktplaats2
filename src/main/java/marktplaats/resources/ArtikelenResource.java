@@ -103,12 +103,12 @@ public class ArtikelenResource {
     @POST
     @Path("verkoopArtikel")
     @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.TEXT_PLAIN)
     public Response postArtikel(ArtikelDto artikelDto) {
 
         Product teVerkopenProduct = artikelenService.mapProductDtoNaarProduct(artikelDto);
+
         artikelenService.verkoopProduct(teVerkopenProduct);
 
-        return Response.status(201).build();
+        return Response.status(201).entity("OK").build();
     }
 }
