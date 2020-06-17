@@ -1,8 +1,6 @@
 package marktplaats.resources;
 
-import marktplaats.domain.Artikel;
 import marktplaats.domain.Categorie;
-import marktplaats.domain.Gebruiker;
 import marktplaats.domain.Product;
 import marktplaats.dto.ArtikelDto;
 import marktplaats.dto.BezorgwijzeDto;
@@ -23,53 +21,51 @@ public class ArtikelenResource {
     private ArtikelenService artikelenService;
 
     @GET
-    public Response helloworld1() {
-        return Response.ok().entity("HOI").build();
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<ArtikelDto> alleProducten() {
+        List<ArtikelDto> temp = new ArrayList<>();
+        List<Product> producten = zoekArtikelenService.getAlleProducten();
+        for (Product p : producten) {
+            temp.add(mapProductNaarDto(p));
+        }
+        return temp;
     }
 
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public ArtikelDto testArtikelZoeken(@PathParam("id") long id) {
-        List<Product> producten = artikelenService.getProducten(id);
-//        List<Artikel> artikelen = zoekArtikelenService.getArtikelen(4);
-        return mapProductNaarDto(producten);
+    public List<ArtikelDto> productOpBasisVan(@PathParam("id") long id) {
+        List<ArtikelDto> temp = new ArrayList<>();
+        List<Product> producten = zoekArtikelenService.getProducten(id);
+        for (Product p : producten) {
+            temp.add(mapProductNaarDto(p));
+        }
+        return temp;
     }
 
-    @GET
-    @Path(("artikel2"))
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response testArtikel() {
-        List<Product> producten = artikelenService.getProducten(4);
-        return Response.ok(producten).build();
-    }
-
-    private ArtikelDto mapProductNaarDto(List<Product> producten) {
-        Product product = producten.get(0);
+    private ArtikelDto mapProductNaarDto(Product product) {
         ArtikelDto dto = new ArtikelDto();
 
         dto.setId(product.getId());
         dto.setArtikelNaam(product.getArtikelNaam());
         dto.setPrijs(product.getPrijs());
         dto.setOmschrijving(product.getOmschrijving());
-        dto.setVerkoper(mapVerkoperNaarDto(producten));
+        dto.setVerkoper(mapVerkoperNaarDto(product));
         dto.setBod(product.isBod());
         dto.setTijdVanPlaatsen(product.getTijdVanPlaatsen());
-//        dto.setBezorgwijzen(product.getBezorgwijzen());
         dto.setBijlagen(product.getBijlagen());
 
         for (int i = 0; i < product.getBezorgwijzen().size(); i++) {
-            dto.setBezorgwijze(mapBezorgwijzeNaarDto(producten, i));
+            dto.setBezorgwijze(mapBezorgwijzeNaarDto(product, i));
         }
 
         for (Categorie categorie : product.getCategorie()) {
-            dto.setCategories(mapCategorieNaarDto(producten));
+            dto.setCategories(mapCategorieNaarDto(product));
         }
         return dto;
     }
 
-    private BezorgwijzeDto mapBezorgwijzeNaarDto(List<Product> producten, int index) {
-        Product product = producten.get(0);
+    private BezorgwijzeDto mapBezorgwijzeNaarDto(Product product, int index) {
         BezorgwijzeDto dto = new BezorgwijzeDto();
 
         dto.setBezorgwijze(product.getBezorgwijzen().get(index).name());
@@ -77,8 +73,7 @@ public class ArtikelenResource {
         return dto;
     }
 
-    private CategorieDto mapCategorieNaarDto(List<Product> producten) {
-        Product product = producten.get(0);
+    private CategorieDto mapCategorieNaarDto(Product product) {
         CategorieDto dto = new CategorieDto();
 
         for (Categorie cat : product.getCategorie()) {
@@ -88,30 +83,13 @@ public class ArtikelenResource {
         return dto;
     }
 
-    private VerkoperDto mapVerkoperNaarDto(List<Product> producten) {
-        Product product = producten.get(0);
+    private VerkoperDto mapVerkoperNaarDto(Product product) {
         VerkoperDto dto = new VerkoperDto();
 
         dto.setId(product.getVerkoper().getId());
         dto.setEmail(product.getVerkoper().getEmail());
 
         return dto;
-    }
-
-    @GET
-    @Path("string")
-    public String testArtikelZoekeString() {
-        List<Artikel> artikel = artikelenService.getArtikelen(4);
-        System.out.println("Artikel: " + artikel.get(0).getArtikelNaam());
-        return artikel.get(0).getArtikelNaam();
-    }
-
-    @GET
-    @Path("gebruiker")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Gebruiker testGebruikerZoeken() {
-        List<Gebruiker> gebruikers = artikelenService.getGebruiker(1);
-        return gebruikers.get(0);
     }
 
     @GET
