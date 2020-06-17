@@ -15,16 +15,12 @@ public class ZoekArtikelenService {
     @Inject
     private ZoekDao zoekDao;
 
-    public List<Artikel> getArtikelen(long id) {
-        return zoekDao.zoekArtikelenOp(id);
-    }
-
-    public List<Product> getProducten(long id) {
+    public List<Product> getProduct(long id) {
         return zoekDao.zoekProductOp(id);
     }
 
-    public List<Gebruiker> getGebruiker(long id) {
-        return zoekDao.zoekGebruikerOp(id);
+    public List<Product> getAlleProducten() {
+        return zoekDao.alleProducten();
     }
 
 }
