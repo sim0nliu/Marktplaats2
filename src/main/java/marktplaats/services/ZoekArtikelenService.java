@@ -1,8 +1,6 @@
 package marktplaats.services;
 
 import marktplaats.dao.ZoekDao;
-import marktplaats.domain.Artikel;
-import marktplaats.domain.Gebruiker;
 import marktplaats.domain.Product;
 
 import javax.enterprise.context.Dependent;
@@ -15,16 +13,10 @@ public class ZoekArtikelenService {
     @Inject
     private ZoekDao zoekDao;
 
-    public List<Artikel> getArtikelen(long id) {
-        return zoekDao.zoekArtikelenOp(id);
-    }
-
     public List<Product> getProducten(long id) {
         return zoekDao.zoekProductOp(id);
     }
 
-    public List<Gebruiker> getGebruiker(long id) {
-        return zoekDao.zoekGebruikerOp(id);
-    }
+    public List<Product> getAlleProducten() { return zoekDao.alleProducten(); }
 
 }
