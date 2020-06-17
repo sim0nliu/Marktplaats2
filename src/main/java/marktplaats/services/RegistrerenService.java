@@ -3,14 +3,10 @@ package marktplaats.services;
 import marktplaats.dao.GebruikerDao;
 import marktplaats.dao.exceptions.GebruikerNotFoundException;
 import marktplaats.domain.Gebruiker;
-import marktplaats.domain.Gebruikers;
+import marktplaats.util.EmailChecker;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import java.util.ArrayList;
-import java.util.List;
-
-import static java.util.stream.Collectors.toList;
 
 @Stateless
 public class RegistrerenService {
@@ -38,6 +34,7 @@ public class RegistrerenService {
         return gebruikerDao.bestaatGebruiker(email);
     }
 
-
-
+    public boolean isEmailSlechtFormat(String email){
+        return EmailChecker.isValideEmail(email);
+    }
 }
