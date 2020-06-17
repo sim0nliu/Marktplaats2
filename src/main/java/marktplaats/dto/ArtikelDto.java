@@ -27,6 +27,7 @@ public class ArtikelDto {
     private String categorie;
     private List<CategorieDto> categories;
     private List<String> categorieen;
+    //change
 
     public ArtikelDto() {
     }
