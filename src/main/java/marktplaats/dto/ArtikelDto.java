@@ -31,6 +31,7 @@ public class ArtikelDto {
     private boolean bod;
     private List<CategorieDto> categories;
     private List<String> categorieen;
+    //change
 
     public ArtikelDto() {
     }
