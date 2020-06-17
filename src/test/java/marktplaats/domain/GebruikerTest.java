@@ -55,13 +55,6 @@ class GebruikerTest {
         assertThat(testGebruiker.verifyPassword("goudWoord1")).isTrue();
     }
 
-    @Test
-    void isValidEmail() {
-    }
-
-    @Test
-    void containsNONumber() {
-    }
 
     @Test
     void verifyPasswordTest()  {
