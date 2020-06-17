@@ -1,17 +1,21 @@
 package marktplaats.resources;
 
+import marktplaats.domain.Artikel;
 import marktplaats.domain.Categorie;
+import marktplaats.domain.Gebruiker;
 import marktplaats.domain.Product;
 import marktplaats.dto.ArtikelDto;
 import marktplaats.dto.BezorgwijzeDto;
 import marktplaats.dto.CategorieDto;
 import marktplaats.dto.VerkoperDto;
 import marktplaats.services.ArtikelenService;
+import marktplaats.services.ZoekArtikelenService;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.ArrayList;
 import java.util.List;
 
 @Path("artikelen")
@@ -19,6 +23,9 @@ public class ArtikelenResource {
 
     @Inject
     private ArtikelenService artikelenService;
+
+    @Inject
+    ZoekArtikelenService zoekArtikelenService;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -36,7 +43,7 @@ public class ArtikelenResource {
     @Produces(MediaType.APPLICATION_JSON)
     public List<ArtikelDto> productOpBasisVan(@PathParam("id") long id) {
         List<ArtikelDto> temp = new ArrayList<>();
-        List<Product> producten = zoekArtikelenService.getProducten(id);
+        List<Product> producten = zoekArtikelenService.getProduct(id);
         for (Product p : producten) {
             temp.add(mapProductNaarDto(p));
         }
@@ -109,6 +116,6 @@ public class ArtikelenResource {
 
         artikelenService.verkoopProduct(teVerkopenProduct);
 
-        return Response.status(201).entity("OK").build();
+        return Response.status(201).build();
     }
 }

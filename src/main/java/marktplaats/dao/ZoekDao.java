@@ -6,6 +6,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.ws.rs.Produces;
 import java.util.List;
 
 @Stateless
@@ -21,7 +22,7 @@ public class ZoekDao {
     }
 
     public List<Product> alleProducten() {
-        TypedQuery<Product> query = em.createQuery("SELECT p from Product p", Product.class);
+        TypedQuery<Product> query = em.createQuery("select p from Product p", Product.class);
         return query.getResultList();
     }
 }
