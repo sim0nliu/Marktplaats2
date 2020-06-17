@@ -27,16 +27,8 @@ public class ArtikelenService {
     @Inject
     private ArtikelDao artikelDao;
 
-    public List<Artikel> getArtikelen(long id) {
-        return zoekDao.zoekArtikelenOp(id);
-    }
-
     public List<Product> getProducten(long id) {
         return zoekDao.zoekProductOp(id);
-    }
-
-    public List<Gebruiker> getGebruiker(long id) {
-        return zoekDao.zoekGebruikerOp(id);
     }
 
     public List<Categorie> getCategorieen() {
