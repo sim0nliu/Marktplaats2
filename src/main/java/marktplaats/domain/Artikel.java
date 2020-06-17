@@ -50,7 +50,7 @@ public class Artikel extends AbstracteEntiteit {
 
     public void setCategorie(String categorieNaam) {
         Categorie categorie = new Categorie(categorieNaam);
-        this.categorie.add(categorie);
+        addCategorie(categorie);
     }
 
     public void setCategorie(Set<Categorie> categorie) {

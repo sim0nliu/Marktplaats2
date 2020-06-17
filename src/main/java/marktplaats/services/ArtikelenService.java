@@ -1,10 +1,13 @@
 package marktplaats.services;
 
+import marktplaats.dao.ArtikelDao;
 import marktplaats.dao.CategorieDao;
 import marktplaats.dao.GebruikerDao;
-import marktplaats.dao.ArtikelDao;
 import marktplaats.dao.ZoekDao;
-import marktplaats.domain.*;
+import marktplaats.domain.Bezorgwijze;
+import marktplaats.domain.Categorie;
+import marktplaats.domain.Gebruiker;
+import marktplaats.domain.Product;
 import marktplaats.dto.ArtikelDto;
 
 import javax.enterprise.context.Dependent;
@@ -42,18 +45,14 @@ public class ArtikelenService {
         nieuwProduct.setCategorie(artikelDto.getCategorie());
         nieuwProduct.setOmschrijving(artikelDto.getOmschrijving());
         nieuwProduct.setPrijs(artikelDto.getPrijs());
-
         nieuwProduct.setBezorgwijzen(Arrays.asList(Bezorgwijze.Versturen));
 
-//        nieuwProduct.setBijlagen(artikelDto.getBijlagen());
-//        nieuwProduct.setBezorgwijzen(artikelDto.getBezorgwijzen());
 
         return nieuwProduct;
     }
 
     public void verkoopProduct(Product teVerkopenProduct) {
 
-//        String wachtwoord = "mijnWachtwoord";
         Gebruiker gebruiker = gebruikerDao.getGebruikerMetEmail("simon@marktplaats.nl");
 
         gebruiker.voegArtikelToeAanLijstVanTeVerkopenArtikelen(teVerkopenProduct);
