@@ -46,9 +46,9 @@ public class ArtikelDto {
     }
 
 
-    public List<Categorie> getCategorie() {
-        return Arrays.asList(stringCategorieNaarCategorie(categorie));
-    }
+   // public Set<Categorie> getCategorie() {
+       // return Arrays.asList(stringCategorieNaarCategorie(categorie));
+    //}
 
     public Categorie stringCategorieNaarCategorie(String stringCategorie) {
         return new Categorie(stringCategorie);

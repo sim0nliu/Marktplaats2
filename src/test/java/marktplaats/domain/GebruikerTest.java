@@ -46,7 +46,13 @@ class GebruikerTest {
     }
 
     @Test
-    void checkPassword() {
+    void checkPassword() throws InvalidPasswordException {
+        testGebruiker.setWachtwoord("merchWoord1");
+        assertThat(testGebruiker.verifyPassword("merchWoord1")).isTrue();
+        testGebruiker.setWachtwoord("groenWoord1");
+        assertThat(testGebruiker.verifyPassword("groenWoord1")).isTrue();
+        testGebruiker.setWachtwoord("goudWoord1");
+        assertThat(testGebruiker.verifyPassword("goudWoord1")).isTrue();
     }
 
     @Test

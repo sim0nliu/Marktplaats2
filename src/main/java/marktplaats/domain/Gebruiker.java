@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import marktplaats.domain.exceptions.InvalidEmailException;
 import marktplaats.domain.exceptions.InvalidPasswordException;
+import marktplaats.util.EmailChecker;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -25,6 +26,8 @@ import static javax.persistence.FetchType.EAGER;
 public class Gebruiker extends AbstracteEntiteit {
 
     // @Email
+    // 2020/06/15: email spec defines a max length of 254 characters,
+    // database spec specifies maximum length of 250 characters for a unique constraint
     @NotNull
     @Column(unique = true, columnDefinition = "VARCHAR(64)")
     protected String email;
@@ -65,7 +68,7 @@ public class Gebruiker extends AbstracteEntiteit {
     }
 
     public void setEmailAdress(String emailAdress) throws InvalidEmailException {
-        if (isValidEmail(emailAdress)) {
+        if (EmailChecker.isValideEmail(emailAdress)) {
             this.email = emailAdress;
         } else {
             throw new InvalidEmailException();
@@ -114,22 +117,17 @@ public class Gebruiker extends AbstracteEntiteit {
     }
 
     public static boolean checkPassword(String passwordToBeChecked, String email) {
-        if (passwordToBeChecked.length() < 9
+        if (passwordToBeChecked.length() < 6
                 || passwordToBeChecked.equals(email)
-                || containsNONumber(passwordToBeChecked)) {
+                || containsNONumber(passwordToBeChecked)
+                || containsNoLetter(passwordToBeChecked)) {
             return false;
         } else {
             return true;
         }
     }
 
-    public static boolean isValidEmail(String email) {
-        if (email.length() > 64) {
-            return false;
-        }
-        String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
-        return email.matches(regex);
-    }
+
 
     public static boolean containsNONumber(String tobechecked) {
         return !tobechecked.matches(".*\\d.*");
@@ -144,7 +142,9 @@ public class Gebruiker extends AbstracteEntiteit {
         return this.id;
     }
 
-    public static boolean containsNoLetter(String tobechecked) {return !tobechecked.matches(".*\\s.*");}
+    public static boolean containsNoLetter(String tobechecked) {
+        return !tobechecked.matches(".*[a-zA-Z]+.*");
+    }
 
     public void voegArtikelToeAanLijstVanTeVerkopenArtikelen(Artikel artikel) {
         this.lijstVanTeVerkopenArtikelen.add(artikel);

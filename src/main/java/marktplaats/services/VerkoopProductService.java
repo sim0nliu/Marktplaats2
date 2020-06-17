@@ -48,7 +48,7 @@ public class VerkoopProductService {
         Product nieuwProduct = new Product();
 
         nieuwProduct.setArtikelNaam(artikelDto.getArtikelNaam());
-        nieuwProduct.setCategorie(artikelDto.getCategorie());
+        // nieuwProduct.setCategorie(artikelDto.getCategorie());
         nieuwProduct.setOmschrijving(artikelDto.getOmschrijving());
         nieuwProduct.setPrijs(artikelDto.getPrijs());
         return nieuwProduct;
