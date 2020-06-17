@@ -1,7 +1,6 @@
 package marktplaats.dao;
 
 import marktplaats.dao.exceptions.GebruikerNotFoundException;
-import marktplaats.domain.AbstracteEntiteit;
 import marktplaats.domain.Gebruiker;
 
 import javax.ejb.Stateless;

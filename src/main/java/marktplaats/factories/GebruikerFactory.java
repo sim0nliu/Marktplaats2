@@ -1,22 +1,21 @@
 package marktplaats.factories;
 
 import marktplaats.domain.Bezorgwijze;
+import marktplaats.domain.exceptions.NotImplementedException;
 import marktplaats.domain.Gebruiker;
 import marktplaats.domain.exceptions.InvalidEmailException;
 import marktplaats.domain.exceptions.InvalidPasswordException;
-import marktplaats.domain.exceptions.NotImplementedException;
 
 import javax.enterprise.context.Dependent;
 import java.util.HashSet;
 import java.util.Set;
 
 import static java.util.Collections.singletonList;
-import static marktplaats.domain.Bezorgwijze.AfhalenMagazijn;
 
 @Dependent
 public class GebruikerFactory {
 
-    private final Set<Bezorgwijze> standaardBezorgwijze = new HashSet<>(singletonList(AfhalenMagazijn));
+    private final Set<Bezorgwijze> standaardBezorgwijze = new HashSet<>(singletonList(Bezorgwijze.AfhalenMagazijn));
 
     public Gebruiker create(GebruikerType gebruikerType, String email, String Password) throws InvalidPasswordException, InvalidEmailException {
         switch (gebruikerType) {

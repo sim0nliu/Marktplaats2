@@ -1,9 +1,9 @@
 package marktplaats.services;
 
 import marktplaats.dao.GebruikerDao;
+import marktplaats.util.EmailChecker;
 import marktplaats.dao.exceptions.GebruikerNotFoundException;
 import marktplaats.domain.Gebruiker;
-import marktplaats.util.EmailChecker;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;

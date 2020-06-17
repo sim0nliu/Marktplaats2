@@ -1,8 +1,6 @@
 package marktplaats.services;
 
 import marktplaats.dao.ZoekDao;
-import marktplaats.domain.Artikel;
-import marktplaats.domain.Gebruiker;
 import marktplaats.domain.Product;
 
 import javax.enterprise.context.Dependent;

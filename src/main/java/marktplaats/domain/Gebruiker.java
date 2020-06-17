@@ -1,10 +1,10 @@
 package marktplaats.domain;
 
+import marktplaats.util.EmailChecker;
 import lombok.Getter;
 import lombok.Setter;
 import marktplaats.domain.exceptions.InvalidEmailException;
 import marktplaats.domain.exceptions.InvalidPasswordException;
-import marktplaats.util.EmailChecker;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

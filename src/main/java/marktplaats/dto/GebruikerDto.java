@@ -1,9 +1,8 @@
 package marktplaats.dto;
 
-import lombok.Data;
 import marktplaats.domain.Bezorgwijze;
+import lombok.Data;
 
-import java.util.List;
 import java.util.Set;
 
 @Data

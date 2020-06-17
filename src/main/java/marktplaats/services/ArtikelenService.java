@@ -1,8 +1,8 @@
 package marktplaats.services;
 
-import marktplaats.dao.ArtikelDao;
 import marktplaats.dao.CategorieDao;
 import marktplaats.dao.GebruikerDao;
+import marktplaats.dao.ArtikelDao;
 import marktplaats.dao.ZoekDao;
 import marktplaats.domain.*;
 import marktplaats.dto.ArtikelDto;

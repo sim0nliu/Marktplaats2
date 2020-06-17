@@ -1,15 +1,13 @@
 package marktplaats.resources;
 
-import marktplaats.domain.Artikel;
+import marktplaats.services.ArtikelenService;
+import marktplaats.services.ZoekArtikelenService;
 import marktplaats.domain.Categorie;
-import marktplaats.domain.Gebruiker;
 import marktplaats.domain.Product;
 import marktplaats.dto.ArtikelDto;
 import marktplaats.dto.BezorgwijzeDto;
 import marktplaats.dto.CategorieDto;
 import marktplaats.dto.VerkoperDto;
-import marktplaats.services.ArtikelenService;
-import marktplaats.services.ZoekArtikelenService;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
